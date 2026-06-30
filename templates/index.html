@@ -11,9 +11,20 @@
         <div class="d-flex justify-content-between align-items-center mb-4">
             <div>
                 <h1 class="h3 mb-1">{{ title }}</h1>
-                <p class="text-muted mb-0">Lista de productos.</p>
+                <p class="text-muted mb-0">Lista de productos registrados en el sistema.</p>
             </div>
         </div>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
 
         {% if productos %}
             <div class="table-responsive mb-4">
@@ -40,15 +51,19 @@
                     </tbody>
                 </table>
             </div>
-            <a href="{{ url_for('index', add_test=1) }}" class="btn btn-primary">Agregar Producto de Prueba</a>
+            <div class="d-flex gap-2">
+                <a href="{{ url_for('create_producto') }}" class="btn btn-success">Crear Producto</a>
+            </div>
         {% else %}
             <div class="alert alert-warning" role="alert">
                 No hay productos registrados en la base de datos.
             </div>
-            <a href="{{ url_for('index', add_test=1) }}" class="btn btn-primary">Agregar Producto de Prueba</a>
+            <div class="d-flex gap-2">
+                <a href="{{ url_for('create_producto') }}" class="btn btn-success">Crear Producto</a>
+            </div>
         {% endif %}
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-..." crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

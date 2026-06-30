@@ -19,6 +19,7 @@ def create_app():
 
     app = Flask(__name__, template_folder=str(templates_path))
     app.config.from_object('config.Config')
+    app.secret_key = 'saas-inventario-secret-key-2026'  # Para flash messages
 
     db.init_app(app)
 
